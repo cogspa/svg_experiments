@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Random SVG Human Silhouettes</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      svg {
+        position: absolute;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      // Generate a random integer between min and max, inclusive
+      function randomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+      // Generate a random human silhouette
+      function createHuman() {
+        var colors = ['#f00', '#0f0', '#00f', '#ff0', '#f0f', '#0ff'];
+        var color = colors[randomInt(0, colors.length - 1)];
+        var x = randomInt(0, window.innerWidth - 200);
+        var y = randomInt(0, window.innerHeight - 400);
+
+        var human = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        human.setAttribute('width', '200');
+        human.setAttribute('height', '400');
+        human.setAttribute('viewBox', '0 0 200 400');
+        human.setAttribute('style', 'left:' + x + 'px;top:' + y + 'px');
+        human.innerHTML = `
+          <path fill="${color}" d="M100,50 L50,200 L100,350 L150,200 Z" />
+          <circle fill="${color}" cx="100" cy="100" r="30" />
+          <rect fill="${color}" x="80" y="120" width="40" height="80" />
+          <path fill="${color}" d="M70,250 L60,350 L140,350 L130,250 Z" />
+        `;
+
+        return human;
+      }
+
+      // Add the human silhouettes to the DOM
+      for (var i = 0; i < 6; i++) {
+        var human = createHuman();
+        document.body.appendChild(human);
+      }
+    </script>
+  </body>
+</html>
